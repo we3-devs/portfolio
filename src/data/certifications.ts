@@ -23,7 +23,7 @@ export const certifications: Certification[] = [
     date: "2026-02-5",
     credentialUrl: "#",
     logo: "/certs/meta-frontend.svg",
-    status: "In process",
+    status: "In progress",
   },
   {
     title: "Linux for hackers",
@@ -31,6 +31,6 @@ export const certifications: Certification[] = [
     date: "2024-10-05",
     credentialUrl: "https://youtube.com/playlist?list=PLIhvC56v63IJIujb5cyE13oLuyORZpdkL&si=FEsBUoosVmSrolP7",
     logo: "/certs/ccna.svg",
-    status: "intermediate",
+    status: "verified",
   },
 ];
