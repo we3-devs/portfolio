@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ============================================
+   CyberSentinel Portfolio - Global Styles
+   SOC-Inspired Design System
+   ============================================ */
+
+@theme inline {
+  /* Colors */
+  --color-primary-bg: #050816;
+  --color-secondary-bg: #0F172A;
+  --color-card-bg: #111827;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #00E5FF;
+  --color-success: #00FF88;
+  --color-warning: #FFC857;
+  --color-danger: #FF4D6D;
+  --color-text-primary: #FFFFFF;
+  --color-text-muted: #94A3B8;
+  
+  /* Fonts */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 229, 255, 0.15) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #050816;
+  color: #FFFFFF;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Scrollbar Styles
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.15);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.3);
+}
+
+/* ============================================
+   Custom Scrollbar Class
+   ============================================ */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.15);
+  border-radius: 2px;
+}
+
+/* ============================================
+   Selection Style
+   ============================================ */
+
+::selection {
+  background: rgba(0, 229, 255, 0.2);
+  color: #FFFFFF;
+}
+
+/* ============================================
+   Focus Styles
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid rgba(0, 229, 255, 0.3);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   Font Face Setup
+   ============================================ */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("https://fonts.gstatic.com/s/jetbrainsmono/v20/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOV.woff2")
+    format("woff2");
+  font-display: swap;
+  font-weight: 400 700;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKDuKmMIQVjI.woff2")
+    format("woff2");
+  font-display: swap;
+  font-weight: 400 700;
+}

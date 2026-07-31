@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="title">
+  <title id="title">Profile avatar</title>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E5FF" />
+      <stop offset="100%" stop-color="#00FF88" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="40" fill="#050816" />
+  <circle cx="100" cy="70" r="45" fill="url(#grad)" opacity="0.18" />
+  <circle cx="100" cy="72" r="36" fill="#fff" />
+  <path d="M56 176c12-22 32-38 44-38s32 16 44 38" fill="#fff" />
+  <circle cx="82" cy="70" r="6" fill="#050816" />
+  <circle cx="118" cy="70" r="6" fill="#050816" />
+  <path d="M80 88c10 10 20 10 30 0" stroke="#050816" stroke-width="6" stroke-linecap="round" fill="none" />
+</svg>
