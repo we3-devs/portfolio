@@ -10,7 +10,7 @@ export const certifications: Certification[] = [
     status: "Verified",
   },
   {
-    title: "introduction to cybersecurity",
+    title: "Ethical Hacker",
     issuer: "Cisco Networking Academy",
     date: "2026-01-29",
     credentialUrl: "https://www.credly.com/badges/35fe3f7a-414f-4a93-8c99-bddd780973fe/public_url",
@@ -18,10 +18,10 @@ export const certifications: Certification[] = [
     status: "In Progress",
   },
   {
-    title: "Ethical Hacker",
+    title: "introduction to cybersecurity",
     issuer: "Cisco networing academy",
     date: "2026-02-5",
-    credentialUrl: "#",
+    credentialUrl: "https://www.credly.com/badges/35fe3f7a-414f-4a93-8c99-bddd780973fe/public_url",
     logo: "/certs/meta-frontend.svg",
     status: "Verified",
   },
