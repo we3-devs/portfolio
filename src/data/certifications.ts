@@ -15,7 +15,7 @@ export const certifications: Certification[] = [
     date: "2026-01-29",
     credentialUrl: "https://www.credly.com/badges/35fe3f7a-414f-4a93-8c99-bddd780973fe/public_url",
     logo: "/certs/security-plus.svg",
-    status: "In progress",
+    status: "In Progress",
   },
   {
     title: "Ethical Hacker",
