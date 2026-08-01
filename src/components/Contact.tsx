@@ -22,7 +22,7 @@ export default function Contact() {
 
     const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
-    if (!accessKey || accessKey === "YOUR_ACCESS_KEY_HERE") {
+    if (!accessKey || accessKey === "795fe41e-7f29-4c46-822a-723ea0357af2") {
       setSubmitStatus("error");
       setStatusMessage(
         "Web3Forms access key not configured. Get a free key at web3forms.com"
