@@ -62,6 +62,7 @@ export interface BlogPost {
   date: string;
   readingTime: string;
   slug: string;
+  coverImage: string;
 }
 
 export interface NavigationItem {

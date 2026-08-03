@@ -47,7 +47,7 @@ export default function AdminBlogs() {
           <p className="text-sm text-[#94A3B8] font-mono mt-1">{blogs.length} articles</p>
         </div>
         <Link
-          href="/admin/blogs/new"
+          href="/admin/blogs/new/edit"
           className="flex items-center gap-2 px-4 py-2 bg-[#00E5FF]/10 border border-[#00E5FF]/30 rounded-lg text-[#00E5FF] text-sm font-mono hover:bg-[#00E5FF]/20 transition-all"
         >
           <Plus size={16} />

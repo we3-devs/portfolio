@@ -118,6 +118,18 @@ export default function ProjectForm({ onSave }: Props) {
             <label className="block text-xs font-mono text-[#94A3B8] mb-1.5">Architecture</label>
             <textarea value={form.architecture} onChange={(e) => setForm((f) => ({ ...f, architecture: e.target.value }))} rows={3} className="w-full px-3 py-2.5 text-sm bg-[#111827] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono resize-none" />
           </div>
+          <div>
+            <label className="block text-xs font-mono text-[#94A3B8] mb-1.5">Challenges (one per line)</label>
+            <textarea value={form.challenges} onChange={(e) => setForm((f) => ({ ...f, challenges: e.target.value }))} rows={4} className="w-full px-3 py-2.5 text-sm bg-[#111827] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono resize-none" placeholder="One challenge per line" />
+          </div>
+          <div>
+            <label className="block text-xs font-mono text-[#94A3B8] mb-1.5">Lessons Learned (one per line)</label>
+            <textarea value={form.lessons} onChange={(e) => setForm((f) => ({ ...f, lessons: e.target.value }))} rows={4} className="w-full px-3 py-2.5 text-sm bg-[#111827] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono resize-none" placeholder="One lesson per line" />
+          </div>
+          <div>
+            <label className="block text-xs font-mono text-[#94A3B8] mb-1.5">Security Features (one per line)</label>
+            <textarea value={form.security_features} onChange={(e) => setForm((f) => ({ ...f, security_features: e.target.value }))} rows={4} className="w-full px-3 py-2.5 text-sm bg-[#111827] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono resize-none" placeholder="One security feature per line" />
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -126,6 +138,10 @@ export default function ProjectForm({ onSave }: Props) {
               <input type="checkbox" checked={form.featured} onChange={(e) => setForm((f) => ({ ...f, featured: e.target.checked }))} />
               Featured Project
             </label>
+            <div>
+              <label className="block text-xs font-mono text-[#94A3B8] mb-1">Category</label>
+              <input type="text" value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} className="w-full px-3 py-2 text-xs bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono" placeholder="Cybersecurity, AI, ..." />
+            </div>
             <div>
               <label className="block text-xs font-mono text-[#94A3B8] mb-1">Display Order</label>
               <input type="number" value={form.display_order} onChange={(e) => setForm((f) => ({ ...f, display_order: parseInt(e.target.value) || 0 }))} className="w-full px-3 py-2 text-xs bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono" />

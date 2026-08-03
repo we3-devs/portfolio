@@ -102,7 +102,7 @@ export default function Home() {
                 </div>
               </SectionReveal>
               <SectionReveal delay={0.1}>
-                <Skills />
+                <Blog />
               </SectionReveal>
               <SectionReveal delay={0.1}>
                 <div className="relative">
@@ -120,7 +120,7 @@ export default function Home() {
                 <Achievements />
               </SectionReveal>
               <SectionReveal delay={0.3}>
-                <Blog />
+                <Skills />
               </SectionReveal>
               <SectionReveal delay={0.3}>
                 <Contact />

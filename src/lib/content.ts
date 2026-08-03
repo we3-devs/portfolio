@@ -44,6 +44,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     date: (row.published_at ?? row.created_at ?? "").slice(0, 10),
     readingTime: row.reading_time ?? "",
     slug: row.slug,
+    coverImage: row.cover_image ?? "",
   }));
 }
 

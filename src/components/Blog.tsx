@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   BookOpen,
@@ -19,6 +20,8 @@ import {
 import { getBlogPosts } from "@/lib/content";
 import { useContent } from "@/lib/use-content";
 import { type ElementType } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const categoryIcons: Record<string, ElementType> = {
   Cybersecurity: Shield,
@@ -133,9 +136,21 @@ export default function Blog() {
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ y: -4 }}
                 onClick={() => setSelectedPost(post.id)}
-                className="group relative bg-[#111827]/60 backdrop-blur-sm border border-[rgba(0,229,255,0.06)] rounded-lg p-5 hover:border-[#00E5FF]/20 transition-all duration-300 cursor-pointer"
+                className="group relative bg-[#111827]/60 backdrop-blur-sm border border-[rgba(0,229,255,0.06)] rounded-lg overflow-hidden hover:border-[#00E5FF]/20 transition-all duration-300 cursor-pointer"
               >
-                <div className="relative z-10">
+                {post.coverImage && (
+                  <div className="relative h-36 w-full overflow-hidden">
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111827] to-transparent" />
+                  </div>
+                )}
+                <div className="relative z-10 p-5">
                   {/* Category badge */}
                   <div className="flex items-center gap-2 mb-3">
                     <div className="p-1.5 rounded bg-[#00E5FF]/5 border border-[#00E5FF]/10">
@@ -250,6 +265,18 @@ export default function Blog() {
                 </button>
               </div>
 
+              {selectedPostData.coverImage && (
+                <div className="relative h-48 w-full overflow-hidden">
+                  <Image
+                    src={selectedPostData.coverImage}
+                    alt={selectedPostData.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 512px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+
               <div className="p-6 space-y-5">
                 <div>
                   <h3 className="text-lg font-bold text-white mb-2">
@@ -282,8 +309,10 @@ export default function Blog() {
                 </p>
 
                 {selectedPostData.content && (
-                  <div className="text-sm text-[#94A3B8]/80 leading-relaxed whitespace-pre-line border-l-2 border-[#00E5FF]/20 pl-4">
-                    {selectedPostData.content}
+                  <div className="text-sm text-[#94A3B8]/80 leading-relaxed border-l-2 border-[#00E5FF]/20 pl-4 space-y-3 [&_a]:text-[#00E5FF] [&_a]:underline [&_strong]:text-white [&_h1]:text-white [&_h1]:font-bold [&_h1]:text-base [&_h2]:text-white [&_h2]:font-bold [&_h2]:text-sm [&_h3]:text-white [&_h3]:font-semibold [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_code]:bg-[#00E5FF]/5 [&_code]:text-[#00E5FF] [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_pre]:bg-[#050816] [&_pre]:border [&_pre]:border-[rgba(0,229,255,0.08)] [&_pre]:rounded-lg [&_pre]:p-3 [&_pre]:overflow-x-auto [&_blockquote]:border-l-2 [&_blockquote]:border-[#00E5FF]/30 [&_blockquote]:pl-3 [&_blockquote]:italic">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {selectedPostData.content}
+                    </ReactMarkdown>
                   </div>
                 )}
 
