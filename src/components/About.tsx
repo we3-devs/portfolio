@@ -2,13 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Terminal, MapPin, User, Target, Globe, BookOpen } from "lucide-react";
-
-const metadata = [
-  { label: "Hostname", value: "prashant.local", icon: Terminal },
-  { label: "Location", value: "Nepal", icon: MapPin },
-  { label: "Role", value: "Cybersecurity Student", icon: User },
-  { label: "Mission", value: "Become Security Analyst", icon: Target },
-];
+import { useProfile } from "@/lib/use-content";
 
 const focusAreas = [
   { icon: ShieldIcon, label: "SOC" },
@@ -39,6 +33,15 @@ function BrainIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export default function About() {
+  const { profile } = useProfile();
+
+  const metadata = [
+    { label: "Hostname", value: "prashant.local", icon: Terminal },
+    { label: "Location", value: profile?.location || "Nepal", icon: MapPin },
+    { label: "Role", value: profile?.title || "Cybersecurity Student", icon: User },
+    { label: "Mission", value: profile?.bio || "Become Security Analyst", icon: Target },
+  ];
+
   return (
     <section id="about" className="relative py-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

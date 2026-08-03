@@ -11,14 +11,18 @@ import {
   Code2,
   MessageSquare,
   ArrowRight,
+  Beaker,
+  History,
 } from "lucide-react";
 
 interface Stats {
   blogs: number;
   projects: number;
+  labs: number;
   achievements: number;
   certifications: number;
   skills: number;
+  timeline: number;
   messages: number;
   unreadMessages: number;
 }
@@ -26,15 +30,18 @@ interface Stats {
 const statCards = [
   { label: "Blogs", key: "blogs" as const, icon: FileText, href: "/admin/blogs", color: "text-[#00E5FF]" },
   { label: "Projects", key: "projects" as const, icon: FolderKanban, href: "/admin/projects", color: "text-[#00FF88]" },
-  { label: "Achievements", key: "achievements" as const, icon: Award, href: "/admin/achievements", color: "text-[#FFC857]" },    { label: "Certifications", key: "certifications" as const, icon: CertificateIcon, href: "/admin/certifications", color: "text-[#8B5CF6]" },
+  { label: "Labs", key: "labs" as const, icon: Beaker, href: "/admin/labs", color: "text-[#22D3EE]" },
+  { label: "Achievements", key: "achievements" as const, icon: Award, href: "/admin/achievements", color: "text-[#FFC857]" },
+  { label: "Certifications", key: "certifications" as const, icon: CertificateIcon, href: "/admin/certifications", color: "text-[#8B5CF6]" },
   { label: "Skills", key: "skills" as const, icon: Code2, href: "/admin/skills", color: "text-[#FF4D6D]" },
+  { label: "Timeline", key: "timeline" as const, icon: History, href: "/admin/timeline", color: "text-[#FB7185]" },
   { label: "Messages", key: "messages" as const, icon: MessageSquare, href: "/admin/messages", color: "text-[#F59E0B]" },
 ];
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats>({
-    blogs: 0, projects: 0, achievements: 0,
-    certifications: 0, skills: 0, messages: 0, unreadMessages: 0,
+    blogs: 0, projects: 0, labs: 0, achievements: 0,
+    certifications: 0, skills: 0, timeline: 0, messages: 0, unreadMessages: 0,
   });
 
   useEffect(() => {
@@ -42,26 +49,32 @@ export default function AdminDashboard() {
       const [
         { count: blogs },
         { count: projects },
+        { count: labs },
         { count: achievements },
         { count: certifications },
         { count: skills },
+        { count: timeline },
         { count: messages },
         { count: unreadMessages },
       ] = await Promise.all([
         (supabase as any).from("blogs").select("*", { count: "exact", head: true }),
         (supabase as any).from("projects").select("*", { count: "exact", head: true }),
+        (supabase as any).from("labs").select("*", { count: "exact", head: true }),
         (supabase as any).from("achievements").select("*", { count: "exact", head: true }),
         (supabase as any).from("certifications").select("*", { count: "exact", head: true }),
         (supabase as any).from("skills").select("*", { count: "exact", head: true }),
+        (supabase as any).from("timeline").select("*", { count: "exact", head: true }),
         (supabase as any).from("contact_messages").select("*", { count: "exact", head: true }),
         (supabase as any).from("contact_messages").select("*", { count: "exact", head: true }).eq("is_read", false),
       ]);
       setStats({
         blogs: blogs ?? 0,
         projects: projects ?? 0,
+        labs: labs ?? 0,
         achievements: achievements ?? 0,
         certifications: certifications ?? 0,
         skills: skills ?? 0,
+        timeline: timeline ?? 0,
         messages: messages ?? 0,
         unreadMessages: unreadMessages ?? 0,
       });

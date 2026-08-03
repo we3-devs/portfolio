@@ -1,8 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useProfile } from "@/lib/use-content";
 
 export default function Footer() {
+  const { profile } = useProfile();
+  const name = profile?.name || "Prashant Guragain";
+
   const techStack = [
     "Next.js",
     "Tailwind CSS",
@@ -38,7 +42,7 @@ export default function Footer() {
             className="text-[10px] font-mono text-[#94A3B8]"
           >
             <span className="text-[#00E5FF]">©</span>{" "}
-            {new Date().getFullYear()} Prashant Guragain.{" "}
+            {new Date().getFullYear()} {name}.{" "}
             <span className="text-[#94A3B8]/60">
               All systems secure.
             </span>

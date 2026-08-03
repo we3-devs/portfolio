@@ -1,10 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Award, Shield, CheckCircle, Clock } from "lucide-react";
-import { certifications } from "@/data/certifications";
+import { ExternalLink, Award, CheckCircle, Clock, Loader2, AlertCircle } from "lucide-react";
+import { getCertifications } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 
 export default function Certifications() {
+  const { data: certifications, loading, error } = useContent(getCertifications);
+
   return (
     <section id="certifications" className="relative py-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,6 +28,21 @@ export default function Certifications() {
           </p>
         </motion.div>
 
+        {loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#94A3B8]">
+            <Loader2 size={16} className="animate-spin text-[#00E5FF]" />
+            Loading certifications...
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#FF4D6D]">
+            <AlertCircle size={16} />
+            Failed to load certifications.
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="grid sm:grid-cols-2 gap-4">
           {certifications.map((cert, index) => (
             <motion.div
@@ -82,15 +100,17 @@ export default function Certifications() {
 
                 {/* Date */}
                 <p className="text-[10px] font-mono text-[#94A3B8] mt-2">
-                  {new Date(cert.date + "-01").toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                  })}
+                  {cert.date
+                    ? new Date(cert.date + "-01").toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                      })
+                    : "—"}
                 </p>
-              </div>
-            </motion.div>
-          ))}
+              </div>              </motion.div>
+            ))}
         </div>
+        )}
       </div>
     </section>
   );

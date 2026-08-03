@@ -29,6 +29,7 @@ export default function ProjectForm({ onSave }: Props) {
     display_order: 0,
     challenges: "",
     lessons: "",
+    architecture: "",
     security_features: "",
   });
   const [saving, setSaving] = useState(false);
@@ -52,6 +53,7 @@ export default function ProjectForm({ onSave }: Props) {
             display_order: data.display_order || 0,
             challenges: (data.challenges || []).join("\n"),
             lessons: (data.lessons || []).join("\n"),
+            architecture: data.architecture || "",
             security_features: (data.security_features || []).join("\n"),
           });
         }
@@ -70,6 +72,7 @@ export default function ProjectForm({ onSave }: Props) {
       tech_stack: form.tech_stack.split(",").map((t) => t.trim()).filter(Boolean),
       challenges: form.challenges.split("\n").filter(Boolean),
       lessons: form.lessons.split("\n").filter(Boolean),
+      architecture: form.architecture,
       security_features: form.security_features.split("\n").filter(Boolean),
     };
 
@@ -110,6 +113,10 @@ export default function ProjectForm({ onSave }: Props) {
           <div>
             <label className="block text-xs font-mono text-[#94A3B8] mb-1.5">Tech Stack (comma separated)</label>
             <input type="text" value={form.tech_stack} onChange={(e) => setForm((f) => ({ ...f, tech_stack: e.target.value }))} className="w-full px-3 py-2.5 text-sm bg-[#111827] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono" />
+          </div>
+          <div>
+            <label className="block text-xs font-mono text-[#94A3B8] mb-1.5">Architecture</label>
+            <textarea value={form.architecture} onChange={(e) => setForm((f) => ({ ...f, architecture: e.target.value }))} rows={3} className="w-full px-3 py-2.5 text-sm bg-[#111827] border border-[rgba(0,229,255,0.08)] rounded-lg text-white focus:outline-none focus:border-[#00E5FF]/30 font-mono resize-none" />
           </div>
         </div>
 

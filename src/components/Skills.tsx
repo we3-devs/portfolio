@@ -17,8 +17,11 @@ import {
   Layout,
   Container,
   Scan,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-import { skills } from "@/data/skills";
+import { getSkills } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 import type { Skill } from "@/types";
 import { type ElementType } from "react";
 
@@ -41,6 +44,8 @@ const iconMap: Record<string, ElementType> = {
 };
 
 export default function Skills() {
+  const { data: skills, loading, error } = useContent(getSkills);
+
   return (
     <section id="skills" className="relative py-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,10 +62,25 @@ export default function Skills() {
             <span className="text-[#00E5FF]">]</span>
           </h2>
           <p className="text-[#94A3B8] font-mono text-sm">
-            // Loaded {skills.length} capabilities
+            // Loaded {loading ? "..." : skills.length} capabilities
           </p>
         </motion.div>
 
+        {loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#94A3B8]">
+            <Loader2 size={16} className="animate-spin text-[#00E5FF]" />
+            Loading modules...
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#FF4D6D]">
+            <AlertCircle size={16} />
+            Failed to load skills.
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {skills.map((skill: Skill, index: number) => {
             const Icon = iconMap[skill.icon] || Code2;
@@ -118,6 +138,7 @@ export default function Skills() {
             );
           })}
         </div>
+        )}
       </div>
     </section>
   );

@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Mail, GitBranch, Link, Download, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { useProfile } from "@/lib/use-content";
 
 export default function Contact() {
+  const { profile } = useProfile();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -16,55 +19,31 @@ export default function Contact() {
   >("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitStatus("loading");
 
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
-    if (!accessKey || accessKey === "795fe41e-7f29-4c46-822a-723ea0357af2") {
-      setSubmitStatus("error");
-      setStatusMessage(
-        "Web3Forms access key not configured. Get a free key at web3forms.com"
-      );
-      return;
-    }
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
+      const { error } = await (supabase as any).from("contact_messages").insert([
+        {
           name: formState.name,
           email: formState.email,
           subject: formState.subject,
           message: formState.message,
-        }),
-      });
+        },
+      ]);
 
-      const result = await response.json();
+      if (error) throw error;
 
-      if (response.ok && result.success) {
-        setSubmitStatus("success");
-        setStatusMessage(
-          "Message sent successfully. I'll get back to you soon!"
-        );
-        setFormState({ name: "", email: "", subject: "", message: "" });
-        setTimeout(() => setSubmitStatus("idle"), 5000);
-      } else {
-        setSubmitStatus("error");
-        setStatusMessage(
-          result.message || "Something went wrong. Please try again."
-        );
-        setTimeout(() => setSubmitStatus("idle"), 5000);
-      }
+      setSubmitStatus("success");
+      setStatusMessage("Message sent successfully. I'll get back to you soon!");
+      setFormState({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setSubmitStatus("idle"), 5000);
     } catch {
       setSubmitStatus("error");
-      setStatusMessage("Network error. Please check your connection and try again.");
+      setStatusMessage(
+        "Something went wrong. Please check your Supabase connection and try again."
+      );
       setTimeout(() => setSubmitStatus("idle"), 5000);
     }
   };
@@ -78,25 +57,25 @@ export default function Contact() {
   const links = [
     {
       label: "GitHub",
-      href: "https://github.com/prashantguragain",
+      href: profile?.github_url || "https://github.com/prashantguragain",
       icon: GitBranch,
       color: "hover:text-white",
     },
     {
       label: "LinkedIn",
-      href: "https://linkedin.com/in/prashantguragain",
+      href: profile?.linkedin_url || "https://linkedin.com/in/prashantguragain",
       icon: Link,
       color: "hover:text-[#0A66C2]",
     },
     {
       label: "Email",
-      href: "mailto:prashantaguragain@gmail.com",
+      href: `mailto:${profile?.email || "prashantaguragain@gmail.com"}`,
       icon: Mail,
       color: "hover:text-[#00E5FF]",
     },
     {
       label: "Resume",
-      href: "#",
+      href: profile?.resume_url || "#",
       icon: Download,
       color: "hover:text-[#00FF88]",
     },

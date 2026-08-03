@@ -12,8 +12,11 @@ import {
   AlertTriangle,
   Lightbulb,
   Shield,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-import { labs } from "@/data/labs";
+import { getLabs } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 
 const difficultyColors = {
   Beginner: "#00FF88",
@@ -23,6 +26,7 @@ const difficultyColors = {
 
 export default function CyberLab() {
   const [expandedLab, setExpandedLab] = useState<string | null>(null);
+  const { data: labs, loading, error } = useContent(getLabs);
 
   const toggleLab = (id: string) => {
     setExpandedLab(expandedLab === id ? null : id);
@@ -48,6 +52,21 @@ export default function CyberLab() {
           </p>
         </motion.div>
 
+        {loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#94A3B8]">
+            <Loader2 size={16} className="animate-spin text-[#00E5FF]" />
+            Loading lab reports...
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#FF4D6D]">
+            <AlertCircle size={16} />
+            Failed to load lab reports.
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="space-y-4">
           {labs.map((lab, index) => (
             <motion.div
@@ -232,6 +251,7 @@ export default function CyberLab() {
             </motion.div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

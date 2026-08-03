@@ -56,6 +56,7 @@ export interface BlogPost {
   id: string;
   title: string;
   excerpt: string;
+  content: string;
   category: string;
   tags: string[];
   date: string;
@@ -66,4 +67,12 @@ export interface BlogPost {
 export interface NavigationItem {
   label: string;
   href: string;
+}
+
+export interface Achievement {
+  title: string;
+  description: string;
+  date: string;
+  icon: string;
+  category: string;
 }

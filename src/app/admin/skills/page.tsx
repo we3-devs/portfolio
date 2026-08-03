@@ -17,7 +17,7 @@ export default function AdminSkills() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", category: "", level: 50, display_order: 0 });
+  const [form, setForm] = useState({ name: "", category: "", description: "", icon: "Code2", level: 50, display_order: 0 });
 
   useEffect(() => { load(); }, []);
 
@@ -28,7 +28,7 @@ export default function AdminSkills() {
   }
 
   function resetForm() {
-    setForm({ name: "", category: "", level: 50, display_order: 0 });
+    setForm({ name: "", category: "", description: "", icon: "Code2", level: 50, display_order: 0 });
     setEditId(null);
     setShowForm(false);
   }
@@ -50,7 +50,7 @@ export default function AdminSkills() {
   }
 
   function handleEdit(item: any) {
-    setForm({ name: item.name, category: item.category || "", level: item.level || 50, display_order: item.display_order || 0 });
+    setForm({ name: item.name, category: item.category || "", description: item.description || "", icon: item.icon || "Code2", level: item.level || 50, display_order: item.display_order || 0 });
     setEditId(item.id);
     setShowForm(true);
   }
@@ -69,8 +69,10 @@ export default function AdminSkills() {
           <div className="grid sm:grid-cols-4 gap-3">
             <input type="text" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} placeholder="Skill name" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
             <input type="text" value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} placeholder="Category" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
-            <input type="number" value={form.level} onChange={(e) => setForm((f) => ({ ...f, level: Math.min(100, Math.max(0, parseInt(e.target.value) || 0)) }))} placeholder="Level (0-100)" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
+            <input type="text" value={form.icon} onChange={(e) => setForm((f) => ({ ...f, icon: e.target.value }))} placeholder="Icon (Code2, Shield...)" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
             <input type="number" value={form.display_order} onChange={(e) => setForm((f) => ({ ...f, display_order: parseInt(e.target.value) || 0 }))} placeholder="Order" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
+            <textarea value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} placeholder="Description" rows={2} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 resize-none sm:col-span-4" />
+            <input type="number" value={form.level} onChange={(e) => setForm((f) => ({ ...f, level: Math.min(100, Math.max(0, parseInt(e.target.value) || 0)) }))} placeholder="Level (0-100)" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
           </div>
           <div className="flex gap-2">
             <button onClick={handleSave} className="px-4 py-2 bg-[#00E5FF]/10 border border-[#00E5FF]/30 rounded-lg text-[#00E5FF] text-sm font-mono hover:bg-[#00E5FF]/20 transition-all">{editId ? "Update" : "Create"}</button>

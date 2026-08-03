@@ -1,0 +1,147 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { Plus, Edit2, Trash2 } from "lucide-react";
+
+interface LabItem {
+  id: string;
+  title: string;
+  difficulty: string;
+  display_order: number;
+}
+
+const db = () => (supabase as any).from("labs");
+
+const emptyForm = {
+  title: "",
+  objective: "",
+  environment: "",
+  tools: "",
+  steps: "",
+  findings: "",
+  mitigation: "",
+  lessons: "",
+  difficulty: "Beginner",
+  display_order: 0,
+};
+
+export default function AdminLabs() {
+  const [items, setItems] = useState<LabItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
+  const [form, setForm] = useState(emptyForm);
+
+  useEffect(() => { load(); }, []);
+
+  async function load() {
+    const { data } = await db().select("*").order("display_order", { ascending: true });
+    if (data) setItems(data);
+    setLoading(false);
+  }
+
+  function resetForm() {
+    setForm(emptyForm);
+    setEditId(null);
+    setShowForm(false);
+  }
+
+  async function handleSave() {
+    const payload = {
+      title: form.title,
+      objective: form.objective,
+      environment: form.environment,
+      tools: form.tools.split(",").map((t) => t.trim()).filter(Boolean),
+      steps: form.steps.split("\n").filter(Boolean),
+      findings: form.findings.split("\n").filter(Boolean),
+      mitigation: form.mitigation.split("\n").filter(Boolean),
+      lessons: form.lessons.split("\n").filter(Boolean),
+      difficulty: form.difficulty,
+      display_order: form.display_order,
+    };
+    if (editId) {
+      await db().update(payload).eq("id", editId);
+    } else {
+      await db().insert([payload]);
+    }
+    resetForm();
+    load();
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this lab?")) return;
+    await db().delete().eq("id", id);
+    load();
+  }
+
+  function handleEdit(item: any) {
+    setForm({
+      title: item.title,
+      objective: item.objective || "",
+      environment: item.environment || "",
+      tools: (item.tools || []).join(", "),
+      steps: (item.steps || []).join("\n"),
+      findings: (item.findings || []).join("\n"),
+      mitigation: (item.mitigation || []).join("\n"),
+      lessons: (item.lessons || []).join("\n"),
+      difficulty: item.difficulty || "Beginner",
+      display_order: item.display_order || 0,
+    });
+    setEditId(item.id);
+    setShowForm(true);
+  }
+
+  if (loading) return <p className="text-[#94A3B8] font-mono text-sm">Loading...</p>;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <div><h1 className="text-2xl font-bold text-white font-mono">Labs</h1><p className="text-sm text-[#94A3B8] font-mono mt-1">{items.length} labs</p></div>
+        <button onClick={() => { resetForm(); setShowForm(true); }} className="flex items-center gap-2 px-4 py-2 bg-[#00E5FF]/10 border border-[#00E5FF]/30 rounded-lg text-[#00E5FF] text-sm font-mono hover:bg-[#00E5FF]/20 transition-all"><Plus size={16} /> New</button>
+      </div>
+
+      {showForm && (
+        <div className="bg-[#111827]/60 border border-[rgba(0,229,255,0.06)] rounded-lg p-4 mb-6 space-y-3">
+          <div className="grid sm:grid-cols-2 gap-3">
+            <input type="text" value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} placeholder="Title" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
+            <select value={form.difficulty} onChange={(e) => setForm((f) => ({ ...f, difficulty: e.target.value }))} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+            <textarea value={form.objective} onChange={(e) => setForm((f) => ({ ...f, objective: e.target.value }))} placeholder="Objective" rows={2} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 resize-none sm:col-span-2" />
+            <textarea value={form.environment} onChange={(e) => setForm((f) => ({ ...f, environment: e.target.value }))} placeholder="Environment" rows={2} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 resize-none sm:col-span-2" />
+            <input type="text" value={form.tools} onChange={(e) => setForm((f) => ({ ...f, tools: e.target.value }))} placeholder="Tools (comma separated)" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 sm:col-span-2" />
+            <textarea value={form.steps} onChange={(e) => setForm((f) => ({ ...f, steps: e.target.value }))} placeholder="Steps (one per line)" rows={3} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 resize-none sm:col-span-2" />
+            <textarea value={form.findings} onChange={(e) => setForm((f) => ({ ...f, findings: e.target.value }))} placeholder="Findings (one per line)" rows={3} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 resize-none sm:col-span-2" />
+            <textarea value={form.mitigation} onChange={(e) => setForm((f) => ({ ...f, mitigation: e.target.value }))} placeholder="Mitigation (one per line)" rows={3} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 resize-none sm:col-span-2" />
+            <textarea value={form.lessons} onChange={(e) => setForm((f) => ({ ...f, lessons: e.target.value }))} placeholder="Lessons (one per line)" rows={3} className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30 resize-none sm:col-span-2" />
+            <input type="number" value={form.display_order} onChange={(e) => setForm((f) => ({ ...f, display_order: parseInt(e.target.value) || 0 }))} placeholder="Order" className="px-3 py-2 text-sm bg-[#050816] border border-[rgba(0,229,255,0.08)] rounded-lg text-white font-mono focus:outline-none focus:border-[#00E5FF]/30" />
+          </div>
+          <div className="flex gap-2">
+            <button onClick={handleSave} className="px-4 py-2 bg-[#00E5FF]/10 border border-[#00E5FF]/30 rounded-lg text-[#00E5FF] text-sm font-mono hover:bg-[#00E5FF]/20 transition-all">{editId ? "Update" : "Create"}</button>
+            <button onClick={resetForm} className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-mono hover:bg-white/10 transition-all">Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {items.length === 0 ? <p className="text-[#94A3B8] font-mono text-sm">No labs yet.</p> : (
+        <div className="space-y-2">
+          {items.map((item) => (
+            <div key={item.id} className="flex items-center justify-between bg-[#111827]/60 border border-[rgba(0,229,255,0.06)] rounded-lg px-4 py-3 hover:border-[#00E5FF]/20 transition-all">
+              <div>
+                <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                <p className="text-[10px] font-mono text-[#94A3B8]">{item.difficulty} · Order {item.display_order}</p>
+              </div>
+              <div className="flex gap-1">
+                <button onClick={() => handleEdit(item)} className="p-2 rounded-lg text-[#94A3B8] hover:text-[#00E5FF] hover:bg-[#00E5FF]/5 transition-all"><Edit2 size={14} /></button>
+                <button onClick={() => handleDelete(item.id)} className="p-2 rounded-lg text-[#94A3B8] hover:text-[#FF4D6D] hover:bg-[#FF4D6D]/5 transition-all"><Trash2 size={14} /></button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

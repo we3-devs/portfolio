@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Download, Eye, Send, ChevronDown } from "lucide-react";
+import { useProfile } from "@/lib/use-content";
 
 const typingPhrases = [
   "Learning Cybersecurity...",
@@ -18,6 +19,20 @@ export default function Hero() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { profile } = useProfile();
+
+  const name = profile?.name || "Prashanta Guragain";
+  const nameParts = name.split(" ");
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.slice(1).join(" ");
+  const subtitleLines = profile?.title
+    ? profile.title
+        .split(/[&|]/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : ["Cybersecurity Student", "Secure Software Developer", "SOC Enthusiast"];
+  const avatarUrl = profile?.avatar_url || "/profile-photo.jpg";
+  const resumeUrl = profile?.resume_url || "#";
 
   useEffect(() => {
     const currentPhrase = typingPhrases[phraseIndex];
@@ -65,7 +80,7 @@ export default function Hero() {
         >
           <div className="relative w-full h-full">
             <Image
-              src="/profile-photo.jpg"
+              src={avatarUrl}
               alt=""
               fill
               className="object-cover blur-3xl"
@@ -90,8 +105,8 @@ export default function Hero() {
           <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-[#00E5FF]/30 p-1 relative group">
             <div className="w-full h-full rounded-full bg-[#0F172A] relative overflow-hidden">
               <Image
-                src="/profile-photo.jpg"
-                alt="Prashant Guragain"
+                src={avatarUrl}
+                alt={name}
                 fill
                 className="object-cover scale-105 group-hover:scale-110 transition-transform duration-500"
                 priority
@@ -115,10 +130,12 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 tracking-tight"
         >
-          Prashanta{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#00FF88]">
-            Guragain
-          </span>
+          {firstName}{" "}
+          {lastName && (
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#00FF88]">
+              {lastName}
+            </span>
+          )}
         </motion.h1>
 
         {/* Subtitle */}
@@ -128,15 +145,12 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="space-y-1 mb-6"
         >
-          <p className="text-lg sm:text-xl text-[#94A3B8] font-mono">
-            Cybersecurity Student
-          </p>
-          <p className="text-lg sm:text-xl text-[#94A3B8] font-mono">
-            Secure Software Developer
-          </p>
-          <p className="text-lg sm:text-xl text-[#94A3B8] font-mono">
-            SOC Enthusiast
-          </p>
+          {subtitleLines.length > 0 &&
+            subtitleLines.map((line) => (
+              <p key={line} className="text-lg sm:text-xl text-[#94A3B8] font-mono">
+                {line}
+              </p>
+            ))}
         </motion.div>
 
         {/* Typing animation */}
@@ -175,10 +189,15 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#00E5FF]/0 via-[#00E5FF]/5 to-[#00E5FF]/0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
 
-          <button className="group relative px-8 py-3 bg-[#00FF88]/10 border border-[#00FF88]/30 rounded-lg text-[#00FF88] font-mono text-sm hover:bg-[#00FF88]/20 transition-all duration-300 flex items-center gap-2">
+          <a
+            href={resumeUrl}
+            target={resumeUrl !== "#" ? "_blank" : undefined}
+            rel={resumeUrl !== "#" ? "noopener noreferrer" : undefined}
+            className="group relative px-8 py-3 bg-[#00FF88]/10 border border-[#00FF88]/30 rounded-lg text-[#00FF88] font-mono text-sm hover:bg-[#00FF88]/20 transition-all duration-300 flex items-center gap-2"
+          >
             <Download size={16} />
             Download Resume
-          </button>
+          </a>
 
           <button
             onClick={() => scrollTo("contact")}

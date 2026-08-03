@@ -11,13 +11,17 @@ import {
   Shield,
   Lightbulb,
   AlertTriangle,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-import { projects } from "@/data/projects";
+import { getProjects } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [activeTech, setActiveTech] = useState<string | null>(null);
+  const { data: projects, loading, error } = useContent(getProjects);
 
   const INITIAL_COUNT = 3;
 
@@ -53,6 +57,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Tech filter bar */}
+        {!loading && !error && (
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2">
             <button
@@ -86,7 +91,23 @@ export default function Projects() {
             </p>
           )}
         </div>
+        )}
 
+        {loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#94A3B8]">
+            <Loader2 size={16} className="animate-spin text-[#00E5FF]" />
+            Loading projects...
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#FF4D6D]">
+            <AlertCircle size={16} />
+            Failed to load projects.
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="space-y-8">
           {visibleProjects.map((project, index) => (
             <motion.div
@@ -190,9 +211,10 @@ export default function Projects() {
             </motion.div>
           ))}
         </div>
+        )}
 
         {/* See More / Show Less */}
-        {filtered.length > INITIAL_COUNT && (
+        {!loading && !error && filtered.length > INITIAL_COUNT && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}

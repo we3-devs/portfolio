@@ -19,14 +19,19 @@ import {
   X,
   Shield,
   ChevronRight,
+  Beaker,
+  History,
 } from "lucide-react";
 
 const sidebarLinks = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Blogs", href: "/admin/blogs", icon: FileText },
   { label: "Projects", href: "/admin/projects", icon: FolderKanban },
-  { label: "Achievements", href: "/admin/achievements", icon: Award },    { label: "Certifications", href: "/admin/certifications", icon: CertificateIcon },
+  { label: "Labs", href: "/admin/labs", icon: Beaker },
+  { label: "Achievements", href: "/admin/achievements", icon: Award },
+  { label: "Certifications", href: "/admin/certifications", icon: CertificateIcon },
   { label: "Skills", href: "/admin/skills", icon: Code2 },
+  { label: "Timeline", href: "/admin/timeline", icon: History },
   { label: "Profile", href: "/admin/profile", icon: UserCircle },
   { label: "Messages", href: "/admin/messages", icon: MessageSquare },
 ];

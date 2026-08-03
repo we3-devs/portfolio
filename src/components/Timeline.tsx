@@ -10,8 +10,11 @@ import {
   Building2,
   Brain,
   Target,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-import { timelineEvents } from "@/data/timeline";
+import { getTimelineEvents } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 import { type ElementType } from "react";
 
 const iconMap: Record<string, ElementType> = {
@@ -26,6 +29,8 @@ const iconMap: Record<string, ElementType> = {
 };
 
 export default function Timeline() {
+  const { data: timelineEvents, loading, error } = useContent(getTimelineEvents);
+
   return (
     <section id="timeline" className="relative py-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,6 +51,21 @@ export default function Timeline() {
           </p>
         </motion.div>
 
+        {loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#94A3B8]">
+            <Loader2 size={16} className="animate-spin text-[#00E5FF]" />
+            Loading timeline...
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#FF4D6D]">
+            <AlertCircle size={16} />
+            Failed to load timeline.
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="relative">
           {/* Vertical line */}
           <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#00E5FF] via-[#00FF88] to-transparent" />
@@ -89,6 +109,7 @@ export default function Timeline() {
             })}
           </div>
         </div>
+        )}
       </div>
     </section>
   );

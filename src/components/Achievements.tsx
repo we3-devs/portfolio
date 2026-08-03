@@ -8,8 +8,11 @@ import {
   Network,
   Building2,
   Sparkles,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-import { achievements } from "@/data/achievements";
+import { getAchievements } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 import type { ElementType } from "react";
 
 const iconMap: Record<string, ElementType> = {
@@ -39,6 +42,8 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
 };
 
 export default function Achievements() {
+  const { data: achievements, loading, error } = useContent(getAchievements);
+
   return (
     <section id="achievements" className="relative py-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,6 +64,21 @@ export default function Achievements() {
           </p>
         </motion.div>
 
+        {loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#94A3B8]">
+            <Loader2 size={16} className="animate-spin text-[#00E5FF]" />
+            Loading achievements...
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#FF4D6D]">
+            <AlertCircle size={16} />
+            Failed to load achievements.
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {achievements.map((achievement, index) => {
             const Icon = iconMap[achievement.icon] || Trophy;
@@ -108,6 +128,7 @@ export default function Achievements() {
             );
           })}
         </div>
+        )}
       </div>
     </section>
   );

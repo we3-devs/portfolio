@@ -13,8 +13,11 @@ import {
   Search,
   X,
   ChevronRight,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-import { blogPosts } from "@/data/blog";
+import { getBlogPosts } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 import { type ElementType } from "react";
 
 const categoryIcons: Record<string, ElementType> = {
@@ -30,6 +33,7 @@ export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPost, setSelectedPost] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const { data: blogPosts, loading, error } = useContent(getBlogPosts);
 
   const filteredPosts = blogPosts.filter((post) => {
     if (!searchQuery.trim()) return true;
@@ -101,6 +105,21 @@ export default function Blog() {
           </div>
         </motion.div>
 
+        {loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#94A3B8]">
+            <Loader2 size={16} className="animate-spin text-[#00E5FF]" />
+            Loading articles...
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="flex items-center justify-center gap-2 py-12 text-sm font-mono text-[#FF4D6D]">
+            <AlertCircle size={16} />
+            Failed to load articles.
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {visiblePosts.map((post, index) => {
             const CategoryIcon = categoryIcons[post.category] || BookOpen;
@@ -161,9 +180,10 @@ export default function Blog() {
             );
           })}
         </div>
+        )}
 
         {/* See More / Show Less */}
-        {filteredPosts.length > INITIAL_COUNT && (
+        {!loading && !error && filteredPosts.length > INITIAL_COUNT && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -261,9 +281,11 @@ export default function Blog() {
                   {selectedPostData.excerpt}
                 </p>
 
-                <p className="text-sm text-[#94A3B8]/60 leading-relaxed italic">
-                  Full article content coming soon. This is a preview of the article.
-                </p>
+                {selectedPostData.content && (
+                  <div className="text-sm text-[#94A3B8]/80 leading-relaxed whitespace-pre-line border-l-2 border-[#00E5FF]/20 pl-4">
+                    {selectedPostData.content}
+                  </div>
+                )}
 
                 <div className="flex items-center gap-3 pt-2">
                   <span className="text-[10px] font-mono text-[#94A3B8]/60">
