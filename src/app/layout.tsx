@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     "security operations center",
     "prashanta Guragain",
     "prashanta Guragain",
-    "prashant Guragai"
-    "prashanta Guragai",,
+    "prashant Guragai",
+    "prashanta Guragai",
     "cybersecurity student",
     "secure software developer",
     "penetration testing",
