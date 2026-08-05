@@ -74,26 +74,69 @@ export default function Navbar({ onOpenTerminal }: NavbarProps) {
 
             {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-1">
-              {navigationItems.map((item) => (
-                <button
-                  key={item.href}
-                  onClick={() => handleClick(item.href)}
-                  className={`px-3 py-2 text-sm rounded-lg transition-all duration-200 font-mono ${
-                    activeSection === item.href.slice(1)
-                      ? "text-[#00E5FF] bg-[#00E5FF]/5"
-                      : "text-[#94A3B8] hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navigationItems.map((item) => {
+                const isActive = activeSection === item.href.slice(1);
+                return (
+                  <button
+                    key={item.href}
+                    onClick={() => handleClick(item.href)}
+                    className={`relative px-3 py-2 text-sm rounded-lg transition-colors duration-200 font-mono ${
+                      isActive ? "text-white" : "text-[#94A3B8] hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-liquid-glass"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                        className="absolute inset-0 rounded-lg bg-white/10 backdrop-blur-xl border border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_4px_16px_rgba(0,229,255,0.2)]"
+                      />
+                    )}
+                    <span className="relative z-10">{item.label}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
+              {/* Terminal preview button */}
+              <motion.button
+                onClick={onOpenTerminal}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                title="Open Terminal"
+                className="group relative hidden sm:flex items-center gap-2 rounded-full border border-[#00E5FF]/20 bg-white/[0.03] backdrop-blur-md pl-2 pr-4 py-1.5 hover:border-[#00E5FF]/40 hover:bg-[#00E5FF]/5 transition-colors overflow-hidden"
+              >
+                <span className="relative flex items-center justify-center w-6 h-6 rounded-full bg-[#00E5FF]/10 shrink-0">
+                  <TerminalIcon size={13} className="text-[#00E5FF]" />
+                  <motion.span
+                    animate={{ scale: [1, 1.8], opacity: [0.5, 0] }}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
+                    className="absolute inset-0 rounded-full border border-[#00E5FF]/60"
+                  />
+                </span>
+                <span className="font-mono text-xs text-[#94A3B8] group-hover:text-white transition-colors whitespace-nowrap">
+                  <span className="text-[#00E5FF]">$</span> terminal
+                  <motion.span
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.6, repeat: Infinity }}
+                    className="text-[#00E5FF] ml-0.5"
+                  >
+                    _
+                  </motion.span>
+                </span>
+                {/* animated preview underline */}
+                <motion.span
+                  animate={{ opacity: [0.2, 0.8, 0.2] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute bottom-0 left-2 right-4 h-px bg-gradient-to-r from-transparent via-[#00E5FF] to-transparent"
+                />
+              </motion.button>
+
+              {/* Terminal icon (mobile) */}
               <button
                 onClick={onOpenTerminal}
-                className="p-2 rounded-lg text-[#94A3B8] hover:text-[#00E5FF] hover:bg-[#00E5FF]/5 transition-all"
+                className="sm:hidden p-2 rounded-lg text-[#94A3B8] hover:text-[#00E5FF] hover:bg-[#00E5FF]/5 transition-all"
                 title="Open Terminal"
               >
                 <TerminalIcon size={18} />
@@ -128,7 +171,7 @@ export default function Navbar({ onOpenTerminal }: NavbarProps) {
                   onClick={() => handleClick(item.href)}
                   className={`block w-full text-left px-4 py-3 rounded-lg text-sm transition-all font-mono ${
                     activeSection === item.href.slice(1)
-                      ? "text-[#00E5FF] bg-[#00E5FF]/5"
+                      ? "text-white bg-white/10 backdrop-blur-xl border border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_4px_16px_rgba(0,229,255,0.2)]"
                       : "text-[#94A3B8] hover:text-white hover:bg-white/5"
                   }`}
                 >

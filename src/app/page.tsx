@@ -3,11 +3,10 @@
 import { useState, useCallback, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import BootScreen from "@/components/BootScreen";
+import SiteBackground from "@/components/SiteBackground";
 import NetworkBackground from "@/components/NetworkBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import SecurityStatus from "@/components/SecurityStatus";
-import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import CyberLab from "@/components/CyberLab";
@@ -43,12 +42,6 @@ export default function Home() {
     let konamiIndex = 0;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Open GitHub with 'G'
-      if (e.key === "g" || e.key === "G") {
-        window.open("https://github.com/prashantaguragain", "_blank");
-        return;
-      }
-
       // Konami Code check
       if (e.key === konamiCode[konamiIndex]) {
         konamiIndex++;
@@ -80,6 +73,9 @@ export default function Home() {
       <AnimatePresence>
         {bootComplete && (
           <>
+            {/* Site-wide Background Photo */}
+            <SiteBackground />
+
             {/* Network Background */}
             <NetworkBackground />
 
@@ -89,18 +85,9 @@ export default function Home() {
             {/* Reading Progress Bar */}
             <ReadingProgressBar />
 
-            {/* Security Status Widget */}
-            <SecurityStatus />
-
             {/* Main Sections */}
             <main className="relative z-10">
               <Hero />
-              <SectionReveal>
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00E5FF]/[0.02] to-transparent pointer-events-none" />
-                  <About />
-                </div>
-              </SectionReveal>
               <SectionReveal delay={0.1}>
                 <Blog />
               </SectionReveal>

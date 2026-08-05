@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://prashantguragain.vercel.app"),
+  metadataBase: new URL("https://prashantguragain.com.np"),
   title: {
     default: "CyberSentinel | Prashant Guragain",
     template: "%s | CyberSentinel",
@@ -23,10 +23,13 @@ export const metadata: Metadata = {
   authors: [{ name: "Prashant Guragain" }],
   creator: "Prashant Guragain",
   publisher: "Prashant Guragain",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://prashantguragain.vercel.app",
+    url: "https://prashantguragain.com.np",
     siteName: "CyberSentinel Portfolio",
     title: "CyberSentinel | Prashant Guragain",
     description:
@@ -61,9 +64,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
-  },
-  verification: {
-    google: "",
   },
 };
 
