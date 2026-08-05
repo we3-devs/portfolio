@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://prashantguragain.com.np"),
+  metadataBase: new URL("https://prashantaguragain.com.np"),
   title: {
-    default: "CyberSentinel | Prashant Guragain",
+    default: "CyberSentinel | prashanta Guragain",
     template: "%s | CyberSentinel",
   },
   description:
@@ -14,24 +14,27 @@ export const metadata: Metadata = {
     "portfolio",
     "SOC",
     "security operations center",
-    "Prashant Guragain",
+    "prashanta Guragain",
+    "prashanta Guragain",
+    "prashant Guragai"
+    "prashanta Guragai",,
     "cybersecurity student",
     "secure software developer",
     "penetration testing",
     "network security",
   ],
-  authors: [{ name: "Prashant Guragain" }],
-  creator: "Prashant Guragain",
-  publisher: "Prashant Guragain",
+  authors: [{ name: "prashanta Guragain" }],
+  creator: "prashanta Guragain",
+  publisher: "prashanta Guragain",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://prashantguragain.com.np",
+    url: "https://prashantaguragain.com.np",
     siteName: "CyberSentinel Portfolio",
-    title: "CyberSentinel | Prashant Guragain",
+    title: "CyberSentinel | prashanta Guragain",
     description:
       "A Security Operations Center-inspired portfolio showcasing cybersecurity expertise, projects, and certifications.",
     images: [
@@ -45,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CyberSentinel | Prashant Guragain",
+    title: "CyberSentinel | prashanta Guragain",
     description:
       "A Security Operations Center-inspired portfolio showcasing cybersecurity expertise, projects, and certifications.",
     images: ["/og-image.png"],

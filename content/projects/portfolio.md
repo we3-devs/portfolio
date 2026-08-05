@@ -8,8 +8,8 @@ techStack:
   - Tailwind CSS
   - Framer Motion
   - Lucide React
-github: https://github.com/prashantguragain/portfolio
-live: https://prashantguragain.vercel.app
+github: https://github.com/prashantaguragain/portfolio
+live: https://prashantaguragain.vercel.app
 featured: true
 caseStudy:
   architecture: Single-page application with Next.js App Router, CSS-based animations for performance, Framer Motion for orchestrated transitions.

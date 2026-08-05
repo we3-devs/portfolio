@@ -25,16 +25,16 @@ const commands: Record<string, string> = {
   history    - Command history
   whoami     - Who are you?`,
   about: "> Cybersecurity student. Secure software developer. SOC enthusiast.\n> Currently learning offensive & defensive security, AI security, and building secure systems.",
-  whoami: "> Prashant Guragain — CyberSentinel Operator\n> Role: Cybersecurity Student & Secure Software Developer\n> Mission: Become a Security Analyst protecting digital infrastructure.",
+  whoami: "> prashanta Guragain — CyberSentinel Operator\n> Role: Cybersecurity Student & Secure Software Developer\n> Mission: Become a Security Analyst protecting digital infrastructure.",
   projects: "> Featured projects:\n  • harmoNagar - Restaurant AI Analytics Platform\n  • Cyber Security Lab - Virtual SOC Environment\n  • CyberSentinel Portfolio - SOC-Inspired Portfolio\n> Type 'help' for more commands.",
   skills: "> Security Modules Loaded:\n  • Network Security (85%)\n  • Linux (88%)\n  • Python (90%)\n  • TypeScript (88%)\n  • Next.js (85%)\n  • Node.js (82%)\n  • Burp Suite (72%)\n  • Nmap (78%)\n> Type 'help' for more commands.",
   labs: "> Cyber Lab Reports:\n  • Nmap Enumeration\n  • SQL Injection\n  • Burp Suite Testing\n  • Packet Capture Analysis\n  • Privilege Escalation\n> Type 'help' for more commands.",
   certs: "> Certifications:\n  ✓ Google Cybersecurity Professional\n  ○ CompTIA Security+ (In Progress)\n  ✓ Meta Frontend Developer\n  ✓ CCNA (Networking Basics)\n> Type 'help' for more commands.",
   timeline: "> Journey:\n  2022 - Started Programming\n  2023 - Networking & BSc CSIT\n  2024 - Hackathons & Certifications\n  2025 - Building & Learning AI Security\n> Type 'help' for more commands.",
   resume: "> Opening resume download... (coming soon)",
-  github: "> Opening GitHub profile... https://github.com/prashantguragain",
-  linkedin: "> Opening LinkedIn profile... https://linkedin.com/in/prashantguragain",
-  contact: "> Contact channels:\n  • Email: prashant@example.com\n  • GitHub: github.com/prashantguragain\n  • LinkedIn: linkedin.com/in/prashantguragain",
+  github: "> Opening GitHub profile... https://github.com/prashantaguragain",
+  linkedin: "> Opening LinkedIn profile... https://linkedin.com/in/prashantaguragain",
+  contact: "> Contact channels:\n  • Email: prashanta@example.com\n  • GitHub: github.com/prashantaguragain\n  • LinkedIn: linkedin.com/in/prashantaguragain",
 };
 
 interface TerminalProps {

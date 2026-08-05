@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS timeline (
 
 -- Insert default profile
 INSERT INTO profiles (email, name, title, bio, location)
-VALUES ('admin@cybersentinel.com', 'Prashant Guragain', 'Cybersecurity Student & Developer', 'SOC Enthusiast | Secure Software Developer', 'Nepal')
+VALUES ('admin@cybersentinel.com', 'prashanta Guragain', 'Cybersecurity Student & Developer', 'SOC Enthusiast | Secure Software Developer', 'Nepal')
 ON CONFLICT (email) DO NOTHING;
 
 -- Migrations for existing databases (idempotent: safe to run on fresh or existing DBs)

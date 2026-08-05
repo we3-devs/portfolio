@@ -219,7 +219,7 @@ const projects = [
     description:
       "An intelligent restaurant analytics platform leveraging AI for customer insights, inventory management, and predictive analytics. Built with RAG-based recommendation systems and real-time data processing.",
     tech_stack: ["Next.js", "TypeScript", "PostgreSQL", "pgvector", "Python", "FastAPI", "Docker", "Redis"],
-    github_url: "https://github.com/prashantguragain/harmonagar",
+    github_url: "https://github.com/prashantaguragain/harmonagar",
     live_url: "https://harmonagar.vercel.app",
     featured: true,
     display_order: 0,
@@ -249,7 +249,7 @@ const projects = [
     description:
       "A comprehensive virtual lab environment for security testing, network analysis, and penetration testing. Features automated scanning, vulnerability assessment, and detailed reporting.",
     tech_stack: ["Python", "Bash", "Docker", "Nmap", "Wireshark", "Metasploit", "Burp Suite"],
-    github_url: "https://github.com/prashantguragain/cyber-lab",
+    github_url: "https://github.com/prashantaguragain/cyber-lab",
     live_url: "",
     featured: false,
     display_order: 1,
@@ -276,8 +276,8 @@ const projects = [
     description:
       "An immersive cybersecurity-themed portfolio designed as a Security Operations Center dashboard. Demonstrates modern frontend engineering and security expertise.",
     tech_stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Lucide React"],
-    github_url: "https://github.com/prashantguragain/portfolio",
-    live_url: "https://prashantguragain.vercel.app",
+    github_url: "https://github.com/prashantaguragain/portfolio",
+    live_url: "https://prashantaguragain.vercel.app",
     featured: true,
     display_order: 2,
     challenges: [
@@ -305,7 +305,7 @@ const projects = [
     description:
       "A municipality transparency platform with complaint management, public project tracking, RTI support, and AI-powered analysis built during a hackathon.",
     tech_stack: ["Next.js", "Node.js", "PostgreSQL", "Flutter", "Django", "JWT", "Argon2id"],
-    github_url: "https://github.com/prashantguragain/harmonagar",
+    github_url: "https://github.com/prashantaguragain/harmonagar",
     live_url: "",
     featured: false,
     display_order: 3,
@@ -335,7 +335,7 @@ const projects = [
     description:
       "Built for youth and rural healthcare access. Features AI integration, token-based privacy (no user login required), connecting patients with hospitals, NGOs, and government services.",
     tech_stack: ["Next.js", "Supabase", "AI Integration", "Token-based Privacy"],
-    github_url: "https://github.com/prashantguragain/smart-health",
+    github_url: "https://github.com/prashantaguragain/smart-health",
     live_url: "",
     featured: false,
     display_order: 4,
@@ -364,7 +364,7 @@ const projects = [
     description:
       "A collection of practical cybersecurity projects including Kali Linux lab setup, Metasploitable 2 exploitation practice, Nmap network scanning, DNS TXT-record exfiltration exercises, and Cisco Packet Tracer networking labs with VLAN and DHCP configurations.",
     tech_stack: ["Kali Linux", "Metasploitable", "Nmap", "Cisco Packet Tracer", "DNS", "Wireshark"],
-    github_url: "https://github.com/prashantguragain/cyber-labs",
+    github_url: "https://github.com/prashantaguragain/cyber-labs",
     live_url: "",
     featured: false,
     display_order: 5,
@@ -705,7 +705,7 @@ if (!existingProfile) {
   const { error } = await supabase.from("profiles").insert([
     {
       email: "admin@cybersentinel.com",
-      name: "Prashant Guragain",
+      name: "prashanta Guragain",
       title: "Cybersecurity Student & Developer",
       bio: "SOC Enthusiast | Secure Software Developer",
       location: "Nepal",

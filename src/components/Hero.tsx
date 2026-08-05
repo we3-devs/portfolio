@@ -110,7 +110,7 @@ export default function Hero() {
   const { data: labs } = useContent(getLabs);
   const { data: certifications } = useContent(getCertifications);
 
-  const name = profile?.name || "Prashanta Guragain";
+  const name = profile?.name || "prashantaa Guragain";
   const nameParts = name.split(" ");
   const firstName = nameParts[0] || "";
   const subtitleLines = profile?.title

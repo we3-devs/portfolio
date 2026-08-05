@@ -5,7 +5,7 @@ import { useProfile } from "@/lib/use-content";
 
 export default function Footer() {
   const { profile } = useProfile();
-  const name = profile?.name || "Prashant Guragain";
+  const name = profile?.name || "prashanta Guragain";
 
   const techStack = [
     "Next.js",

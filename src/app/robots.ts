@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin", "/admin/"],
     },
-    sitemap: "https://prashantguragain.vercel.app/sitemap.xml",
-    host: "https://prashantguragain.vercel.app",
+    sitemap: "https://prashantaguragain.com.np/sitemap.xml",
+    host: "https://prashantaguragain.com.np",
   };
 }

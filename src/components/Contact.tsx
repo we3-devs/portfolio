@@ -57,19 +57,19 @@ export default function Contact() {
   const links = [
     {
       label: "GitHub",
-      href: profile?.github_url || "https://github.com/prashantguragain",
+      href: profile?.github_url || "https://github.com/prashantaguragain",
       icon: GitBranch,
       color: "hover:text-white",
     },
     {
       label: "LinkedIn",
-      href: profile?.linkedin_url || "https://linkedin.com/in/prashantguragain",
+      href: profile?.linkedin_url || "https://linkedin.com/in/prashantaguragain",
       icon: Link,
       color: "hover:text-[#0A66C2]",
     },
     {
       label: "Email",
-      href: `mailto:${profile?.email || "prashantaguragain@gmail.com"}`,
+      href: `mailto:${profile?.email || "prashantaaguragain@gmail.com"}`,
       icon: Mail,
       color: "hover:text-[#00E5FF]",
     },

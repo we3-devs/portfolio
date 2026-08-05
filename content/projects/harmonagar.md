@@ -11,7 +11,7 @@ techStack:
   - FastAPI
   - Docker
   - Redis
-github: https://github.com/prashantguragain/harmonagar
+github: https://github.com/prashantaguragain/harmonagar
 live: https://harmonagar.vercel.app
 featured: true
 caseStudy:
