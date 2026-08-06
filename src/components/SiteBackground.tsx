@@ -16,14 +16,14 @@ export default function SiteBackground() {
           src="/hero-bg1.jpeg"
           alt=""
           fill
-          className="object-cover object-[70%_20%] opacity-100"
+          className="object-cover object-[center_15%] lg:object-[70%_20%] opacity-100"
           priority
         />
       </motion.div>
       {/* Theme tint */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#00E5FF]/10 via-transparent to-[#00FF88]/10" />
-      {/* Legibility gradients */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050816]/90 via-[#050816]/55 to-[#050816]/35" />
+      {/* Legibility gradient — desktop: asymmetric, text sits in the left column */}
+      <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-[#050816]/90 via-[#050816]/55 to-[#050816]/35" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#050816]/25 via-[#050816]/45 to-[#050816]/85" />
     </div>
   );

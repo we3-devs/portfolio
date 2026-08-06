@@ -86,16 +86,16 @@ function StatCard({ icon: Icon, value, label, delay }: StatCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
       whileHover={{ y: -3, borderColor: "rgba(0,229,255,0.4)" }}
-      className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md px-4 py-3 transition-colors"
+      className="flex flex-col items-center text-center gap-1.5 sm:flex-row sm:text-left sm:gap-3 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md px-2.5 py-3 sm:px-4 transition-colors"
     >
-      <div className="shrink-0 w-9 h-9 rounded-lg bg-[#00E5FF]/10 flex items-center justify-center">
+      <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#00E5FF]/10 flex items-center justify-center">
         <Icon size={16} className="text-[#00E5FF]" />
       </div>
       <div>
-        <div className="text-xl font-bold text-white leading-none font-mono">
+        <div className="text-lg sm:text-xl font-bold text-white leading-none font-mono">
           <AnimatedCounter value={value} />
         </div>
-        <div className="text-xs text-[#94A3B8] mt-1">{label}</div>
+        <div className="text-[10px] sm:text-xs text-[#94A3B8] mt-1 leading-tight">{label}</div>
       </div>
     </motion.div>
   );
@@ -123,7 +123,7 @@ export default function Hero() {
   const description =
     profile?.bio ||
     "I design and build secure, modern web applications while sharpening my skills as a security researcher — bridging development and defense in every project I ship.";
-  const avatarUrl = profile?.avatar_url || "/profile-photo.jpg";
+  const avatarUrl = profile?.avatar_url || "/hero-bg1.jpeg";
   const resumeUrl = profile?.resume_url || "#";
 
   useEffect(() => {
@@ -157,7 +157,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden"
+      className="relative min-h-dvh lg:min-h-screen flex items-center pt-24 pb-12 lg:pb-16 overflow-hidden"
     >
       {/* Grid overlay */}
       <div
@@ -199,11 +199,101 @@ export default function Hero() {
             }}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-[#050816]/40" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
+      {/* ================= MOBILE-ONLY HERO — premium, minimal, portrait-forward ================= */}
+      <div className="lg:hidden absolute inset-0 flex flex-col">
+        {/* Portrait — main visual focus, ~62% of hero height */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative w-full shrink-0 overflow-hidden flex items-center justify-center"
+          style={{ height: "62%" }}
+        >
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="absolute top-20 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 backdrop-blur-xl px-4 py-1.5 shadow-lg"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00FF88]" />
+            <span className="text-[11px] font-medium text-white tracking-wide whitespace-nowrap">
+              BSc.CSIT Student
+            </span>
+          </motion.div>
+        </motion.div>
+
+        {/* Text + CTAs */}
+        <div className="relative z-10 flex-1 flex flex-col justify-between px-6 pt-2 pb-6">
+          <div className="text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+              className="text-[2rem] leading-[1.2] font-bold text-white tracking-tight"
+            >
+              Building <span className="text-[#FFC857]">Secure</span> Digital Experiences.
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+              className="mt-3 text-sm text-[#94A3B8]"
+            >
+              Secure Software Developer
+            </motion.p>
+          </div>
+
+          <div>
+            <div className="space-y-3">
+              <motion.button
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.45 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => scrollTo("projects")}
+                className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#FFC857] text-[#050816] font-semibold text-[15px] py-3.5 shadow-lg shadow-[#FFC857]/20"
+              >
+                Explore Projects
+                <ArrowUpRight size={16} />
+              </motion.button>
+
+              <motion.a
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.55 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                href={resumeUrl}
+                target={resumeUrl !== "#" ? "_blank" : undefined}
+                rel={resumeUrl !== "#" ? "noopener noreferrer" : undefined}
+                className="w-full flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl text-white font-medium text-[15px] py-3.5"
+              >
+                Download Resume
+              </motion.a>
+            </div>
+
+            {/* Scroll indicator */}
+            <motion.button
+              onClick={() => scrollTo("blog")}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, y: [0, 6, 0] }}
+              transition={{ opacity: { delay: 1 }, y: { duration: 2, repeat: Infinity } }}
+              aria-label="Scroll down"
+              className="mt-5 mx-auto flex text-white/40"
+            >
+              <ChevronDown size={20} />
+            </motion.button>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= DESKTOP HERO (unchanged) ================= */}
+      <div className="hidden lg:block relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* ===== Left column ===== */}
           <div className="text-center lg:text-left">
             {/* Badge */}
@@ -232,7 +322,7 @@ export default function Hero() {
                 hidden: {},
                 visible: { transition: { staggerChildren: 0.12 } },
               }}
-              className="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold text-white leading-[1.1] tracking-tight mb-6"
+              className="text-3xl sm:text-5xl lg:text-[3.4rem] font-bold text-white leading-[1.15] sm:leading-[1.1] tracking-tight mb-6"
             >
               <motion.span
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
@@ -252,7 +342,7 @@ export default function Hero() {
               </motion.span>
               <motion.span
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                className="block text-[#94A3B8] text-2xl sm:text-3xl lg:text-4xl mt-2 font-semibold"
+                className="block text-[#94A3B8] text-lg sm:text-3xl lg:text-4xl mt-2 font-semibold"
               >
                 Protecting Systems, {""}
                 <span className="text-white">Developing Modern Apps.</span>
@@ -294,13 +384,13 @@ export default function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-10"
             >
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => scrollTo("projects")}
-                className="group relative px-7 py-3 rounded-lg font-semibold text-sm text-[#050816] bg-[#FFC857] shadow-[0_0_25px_rgba(255,200,87,0.3)] hover:shadow-[0_0_35px_rgba(255,200,87,0.45)] transition-shadow flex items-center gap-2"
+                className="group relative px-7 py-3 rounded-lg font-semibold text-sm text-[#050816] bg-[#FFC857] shadow-[0_0_25px_rgba(255,200,87,0.3)] hover:shadow-[0_0_35px_rgba(255,200,87,0.45)] transition-shadow flex items-center justify-center gap-2"
               >
                 Explore Projects
                 <ArrowUpRight
@@ -315,7 +405,7 @@ export default function Hero() {
                 href={resumeUrl}
                 target={resumeUrl !== "#" ? "_blank" : undefined}
                 rel={resumeUrl !== "#" ? "noopener noreferrer" : undefined}
-                className="group px-7 py-3 rounded-lg font-mono text-sm text-white border border-white/15 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/25 backdrop-blur-md transition-colors flex items-center gap-2"
+                className="group px-7 py-3 rounded-lg font-mono text-sm text-white border border-white/15 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/25 backdrop-blur-md transition-colors flex items-center justify-center gap-2"
               >
                 <Download size={16} className="text-[#00E5FF]" />
                 Download Resume
@@ -441,55 +531,17 @@ export default function Hero() {
               ))}
             </div>
           </motion.div>
-
-          {/* Mobile illustration (simplified) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="lg:hidden flex flex-col items-center gap-4"
-          >
-            <div className="w-full max-w-xs rounded-xl border border-white/10 bg-[#0F172A]/90 backdrop-blur-xl shadow-2xl overflow-hidden">
-              <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-white/[0.02]">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF4D6D]/70" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFC857]/70" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#00FF88]/70" />
-                <span className="ml-2 text-[10px] font-mono text-[#94A3B8]">
-                  security-dashboard.sh
-                </span>
-              </div>
-              <div className="p-4 font-mono text-[11px] leading-relaxed space-y-1">
-                <p className="text-[#94A3B8]">
-                  <span className="text-[#00E5FF]">$</span> status --check
-                </p>
-                <p className="text-[#00FF88]">[OK] Firewall Active</p>
-                <p className="text-[#00FF88]">[OK] IDS Monitoring</p>
-                <p className="text-[#00FF88]">[OK] Threat Level: Low</p>
-              </div>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 max-w-xs">
-              {techBadges.slice(0, 6).map(({ label, icon: Icon }) => (
-                <div
-                  key={label}
-                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] backdrop-blur-md px-2.5 py-1.5"
-                >
-                  <Icon size={12} className="text-[#00E5FF]" />
-                  <span className="text-[10px] font-mono text-white">{label}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — desktop only, mobile has its own inline indicator above */}
       <motion.button
-        onClick={() => scrollTo("about")}
+        onClick={() => scrollTo("blog")}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 8, 0] }}
         transition={{ opacity: { delay: 1 }, y: { duration: 2, repeat: Infinity } }}
         aria-label="Scroll to about section"
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[#94A3B8] hover:text-[#00E5FF] transition-colors"
+        className="hidden lg:block absolute bottom-4 left-1/2 -translate-x-1/2 text-[#94A3B8] hover:text-[#00E5FF] transition-colors"
       >
         <ChevronDown size={24} />
       </motion.button>
