@@ -242,7 +242,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
               className="mt-3 text-sm text-[#94A3B8]"
             >
-              Secure Software Developer
+              PrashantaGuragain.bat
             </motion.p>
           </div>
 

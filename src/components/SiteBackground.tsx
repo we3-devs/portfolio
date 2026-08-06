@@ -6,17 +6,34 @@ import { motion } from "framer-motion";
 export default function SiteBackground() {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      {/* Mobile background */}
       <motion.div
         initial={{ opacity: 0, scale: 1.08 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0"
+        className="absolute inset-0 lg:hidden"
+      >
+        <Image
+          src="/hero-bgformobilejpeg.jpeg"
+          alt=""
+          fill
+          className="object-cover object-[center_15%] opacity-100"
+          priority
+        />
+      </motion.div>
+
+      {/* Desktop background */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.08 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="hidden lg:block absolute inset-0"
       >
         <Image
           src="/hero-bg1.jpeg"
           alt=""
           fill
-          className="object-cover object-[center_15%] lg:object-[70%_20%] opacity-100"
+          className="object-cover object-[70%_20%] opacity-100"
           priority
         />
       </motion.div>
